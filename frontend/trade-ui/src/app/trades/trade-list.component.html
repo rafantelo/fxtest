@@ -1,0 +1,63 @@
+<h2>Trades</h2>
+
+<mat-card>
+  <mat-form-field>
+    <mat-label>Side</mat-label>
+    <mat-select [(ngModel)]="filters.side" (selectionChange)="loadTrades()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="buy">Buy</mat-option>
+      <mat-option value="sell">Sell</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select [(ngModel)]="filters.type" (selectionChange)="loadTrades()">
+      <mat-option value="">All</mat-option>
+      <mat-option value="market">Market</mat-option>
+      <mat-option value="limit">Limit</mat-option>
+      <mat-option value="stop">Stop</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div style="display:flex;align-items:center;gap:12px;margin:12px 0;">
+  <mat-form-field appearance="outline" style="width:120px;">
+    <mat-label>Page</mat-label>
+    <input matInput type="number" min="1" [(ngModel)]="page" (ngModelChange)="loadTrades()">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width:160px;">
+    <mat-label>Limit</mat-label>
+    <mat-select [(ngModel)]="limit" (selectionChange)="loadTrades()">
+      <mat-option [value]="10">10</mat-option>
+      <mat-option [value]="20">20</mat-option>
+      <mat-option [value]="50">50</mat-option>
+      <mat-option [value]="100">100</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div style="flex:1"></div>
+</div>
+
+<table mat-table [dataSource]="trades" class="mat-elevation-z2">
+  <ng-container matColumnDef="pair">
+    <th mat-header-cell *matHeaderCellDef>Pair</th>
+    <td mat-cell *matCellDef="let t">{{ t.pair }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="side">
+    <th mat-header-cell *matHeaderCellDef>Side</th>
+    <td mat-cell *matCellDef="let t">{{ t.side }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let t">{{ t.price }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['pair','side','price']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['pair','side','price'];"></tr>
+</table>

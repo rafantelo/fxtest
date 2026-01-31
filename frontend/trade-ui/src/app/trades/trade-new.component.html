@@ -1,0 +1,39 @@
+<h2>New Trade</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>Side</mat-label>
+    <mat-select formControlName="side">
+      <mat-option value="buy">Buy</mat-option>
+      <mat-option value="sell">Sell</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="market">Market</mat-option>
+      <mat-option value="limit">Limit</mat-option>
+      <mat-option value="stop">Stop</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Pair</mat-label>
+    <input matInput formControlName="pair" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    Create Trade
+  </button>
+</form>
